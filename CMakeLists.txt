@@ -53,3 +53,4 @@ target_link_libraries(
 # Include and discover tests
 include(GoogleTest)
 gtest_discover_tests(mymath_tests)
+

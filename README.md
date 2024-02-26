@@ -12,6 +12,8 @@ Some default CMake actions are configured including a `Release` and `Debug` buil
 
 - `.github/workflows/cmake-build.yml` - Automatically runs a build and tests each time a PR is submitted targeting the `main` branch or a push to `main` occurs.
 
+- `.github/workflows/cmake-release.yml` - Automatically builds and uploads a release artifact for the default executable binary `cpp-cmake-devops` to a newly-created release in GitHub.
+
 ### GitHub Rules
 
 - `main` - Pull Requests cannot be merged unless all checks pass and at least one reviewer gives approval.
