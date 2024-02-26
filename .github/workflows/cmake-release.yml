@@ -2,7 +2,7 @@ name: CMake Release
 
 on:
     release:
-        types: [created]
+        types: [ created ]
 
 env:
     # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
