@@ -34,4 +34,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run:
-          gh release upload ${{ github.event.release.name }} ${{github.workspace}}/build/cpp-cmake-devops
+          gh release upload ${{ github.event.release.tag_name }} ${{github.workspace}}/build/cpp-cmake-devops
