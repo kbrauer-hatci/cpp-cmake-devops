@@ -1,23 +1,26 @@
 name: CMake Release
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 on:
-    release:
-        types: [ created ]
+  release:
+    types: [ created ]
 
 env:
-    # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-    # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-    BUILD_TYPE: Release
+  # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+  # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+  BUILD_TYPE: Release
 
 jobs:
   release:
+    name: Upload Release Artifacts
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ubuntu-latest
-    permissions:
-        contents: write
-        pages: write
 
     steps:
     - uses: actions/checkout@v3
@@ -36,23 +39,26 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-
-      # Generate documentation
-    - name: Generate Docs
-      uses: mattnotmitt/doxygen-action@v1
-
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: AgarwalSaurav/ghaction-doxygen-ghpages@v2.0.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: .
-        doxyfile-path: Doxyfile
-        html-output-folder: docs/html
-        branch: gh-pages
-
+      
     - name: Upload Release Binary
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run:
           gh release upload ${{ github.event.release.tag_name }} ${{github.workspace}}/build/cpp-cmake-devops
+
+      # Generate documentation
+    - name: Generate Docs
+      uses: mattnotmitt/doxygen-action@v1
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        # Upload the HTML directory
+        path: './docs/html'
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
