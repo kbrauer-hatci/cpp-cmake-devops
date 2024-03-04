@@ -39,12 +39,12 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-      
+
     - name: Upload Release Binary
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run:
-          gh release upload ${{ github.event.release.tag_name }} ${{github.workspace}}/build/cpp-cmake-devops
+          gh release upload ${{ github.event.release.tag_name }} ${{github.workspace}}/build/demo
 
       # Generate documentation
     - name: Generate Docs
