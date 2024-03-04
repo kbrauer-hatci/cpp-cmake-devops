@@ -52,14 +52,3 @@ jobs:
       # Generate documentation
     - name: Generate Docs
       uses: mattnotmitt/doxygen-action@v1
-
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        # Upload the HTML directory
-        path: './docs/html'
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
