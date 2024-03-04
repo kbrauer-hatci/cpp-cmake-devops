@@ -1,5 +1,8 @@
 name: CMake Release
 
+permissions:
+    contents: write
+
 on:
     release:
         types: [ created ]
@@ -15,9 +18,6 @@ jobs:
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ubuntu-latest
-    permissions:
-        contents: write
-        pages: write
 
     steps:
     - uses: actions/checkout@v3
@@ -42,14 +42,9 @@ jobs:
       uses: mattnotmitt/doxygen-action@v1
 
     - name: Deploy to GitHub Pages
-      id: deployment
-      uses: AgarwalSaurav/ghaction-doxygen-ghpages@v2.0.0
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: .
-        doxyfile-path: Doxyfile
-        html-output-folder: docs/html
-        branch: gh-pages
+        folder: docs/html
 
     - name: Upload Release Binary
       env:
