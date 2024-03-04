@@ -5,6 +5,6 @@
 
 int main(int, char**) {
     int val = 9;
-    int s = sqrt(val);
-    std::cout << "Square root of " << val << " is " << s << std::endl;
+    std::cout << "Square root of " << val << " is " << sqrt(val) << std::endl;
+    std::cout << "Factorial of " << val << " is " << fact(val) << std::endl;
 }
